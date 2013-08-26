@@ -8,10 +8,11 @@
 
 #import "ITDictionary.h"
 
-#define kInfoFilePathSuffix     @".info"
-#define kIndexFilePathSuffix    @".index"
-#define kDataFilePathSuffix     @".dz"
+#define kInfoFilePathSuffix     @".ifo"
+#define kIndexFilePathSuffix    @".idx"
+#define kDataFilePathSuffix     @".dict"
 #define kSynFilePathSuffix      @".syn"
+#define kNewLine                @"\n"
 
 @interface ITDictionary()
 
@@ -75,12 +76,47 @@
 
 - (void)loadDictionary
 {
-    NSURL *infoFileUrl = [NSURL URLWithString:self.infoFilePath];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self loadInfoFile];
+        [self loadIndexFile];
+        [self loadSynFile];
+    });
 }
 
 #pragma -mark private methods
 /**
- Load info and index file
+ load data for file at specified path
+ @param filePath file to be read.
+ @return lines of read data
  */
+- (NSArray *)dataForFile:(NSString *)filePath
+{
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [string componentsSeparatedByString:@"\n"];
+}
+/**
+ Load info file
+ */
+- (void)loadInfoFile
+{
+
+}
+
+/**
+ Load index file
+ */
+- (void)loadIndexFile
+{
+
+}
+
+/**
+ Load syn file
+ */
+- (void)loadSynFile
+{
+
+}
 
 @end
