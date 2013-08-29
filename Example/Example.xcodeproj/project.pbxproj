@@ -18,6 +18,9 @@
 		D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */; };
 		D94D7AA017CB9D330026B96C /* ITEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7A9F17CB9D330026B96C /* ITEntry.m */; };
 		D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7AA217CB9E260026B96C /* ITDictionary.m */; };
+		D9630F2C17CE6504005A77AD /* en_vi.dict.dz in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2917CE6504005A77AD /* en_vi.dict.dz */; };
+		D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2A17CE6504005A77AD /* en_vi.idx */; };
+		D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2B17CE6504005A77AD /* en_vi.ifo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		D94D7A9F17CB9D330026B96C /* ITEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITEntry.m; sourceTree = "<group>"; };
 		D94D7AA117CB9E260026B96C /* ITDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionary.h; sourceTree = "<group>"; };
 		D94D7AA217CB9E260026B96C /* ITDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionary.m; sourceTree = "<group>"; };
+		D9630F2917CE6504005A77AD /* en_vi.dict.dz */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.dict.dz; sourceTree = "<group>"; };
+		D9630F2A17CE6504005A77AD /* en_vi.idx */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.idx; sourceTree = "<group>"; };
+		D9630F2B17CE6504005A77AD /* en_vi.ifo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en_vi.ifo; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,7 @@
 		D94D7A8817CB9CCE0026B96C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D9630F2817CE6504005A77AD /* stardict_en_vi */,
 				D94D7A8917CB9CCE0026B96C /* Example-Info.plist */,
 				D94D7A8A17CB9CCE0026B96C /* InfoPlist.strings */,
 				D94D7A8D17CB9CCE0026B96C /* main.m */,
@@ -107,6 +114,16 @@
 				D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D9630F2817CE6504005A77AD /* stardict_en_vi */ = {
+			isa = PBXGroup;
+			children = (
+				D9630F2917CE6504005A77AD /* en_vi.dict.dz */,
+				D9630F2A17CE6504005A77AD /* en_vi.idx */,
+				D9630F2B17CE6504005A77AD /* en_vi.ifo */,
+			);
+			path = stardict_en_vi;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +182,9 @@
 				D94D7A9417CB9CCE0026B96C /* Default.png in Resources */,
 				D94D7A9617CB9CCE0026B96C /* Default@2x.png in Resources */,
 				D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */,
+				D9630F2C17CE6504005A77AD /* en_vi.dict.dz in Resources */,
+				D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */,
+				D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +315,7 @@
 				D94D7A9D17CB9CCE0026B96C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,10 +8,10 @@
 
 #import "ITDictionary.h"
 
-#define kInfoFilePathSuffix     @".ifo"
-#define kIndexFilePathSuffix    @".idx"
-#define kDataFilePathSuffix     @".dict"
-#define kSynFilePathSuffix      @".syn"
+#define kInfoFileExtension     @"ifo"
+#define kIndexFileExtension    @"idx"
+#define kDataFileExtension     @"dz"
+#define kSynFileExtension      @"syn"
 #define kNewLine                @"\n"
 
 @interface ITDictionary()
@@ -39,18 +39,18 @@
         return nil;
     }
     for (NSString *file in files) {
-        if ([file hasSuffix:kInfoFilePathSuffix]) {
+        if ([file hasSuffix:kInfoFileExtension]) {
             infoPath = file;
         }
-        else if ([file hasSuffix:kIndexFilePathSuffix])
+        else if ([file hasSuffix:kIndexFileExtension])
         {
             indexPath = file;
         }
-        else if ([file hasSuffix:kDataFilePathSuffix])
+        else if ([file hasSuffix:kDataFileExtension])
         {
             dataPath = file;
         }
-        else if ([file hasSuffix:kSynFilePathSuffix])
+        else if ([file hasSuffix:kSynFileExtension])
         {
             synPath = file;
         }
@@ -89,18 +89,17 @@
  @param filePath file to be read.
  @return lines of read data
  */
-- (NSArray *)dataForFile:(NSString *)filePath
+- (NSData *)dataForFile:(NSString *)filePath
 {
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [string componentsSeparatedByString:@"\n"];
+    return [NSData dataWithContentsOfFile:filePath];
 }
 /**
  Load info file
  */
 - (void)loadInfoFile
 {
-
+    NSData *data = [self dataForFile:self.infoFilePath];
+    NSLog(@"done %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
 }
 
 /**
@@ -108,7 +107,22 @@
  */
 - (void)loadIndexFile
 {
+    NSData *data = [self dataForFile:self.indexFilePath];
+    Byte *bytes = (Byte *)data.bytes;
+    NSInteger beginDataIndex = 0;
+    NSInteger endDataIndex;
 
+    NSInteger wordCount = 0;
+    while (beginDataIndex < [data length]) {
+        endDataIndex = beginDataIndex;
+        while (bytes[endDataIndex])
+        {
+            ++endDataIndex;
+        }
+        NSString *str = [[NSString alloc] initWithBytes:bytes + beginDataIndex length:endDataIndex - beginDataIndex encoding:NSUTF8StringEncoding];
+        beginDataIndex = endDataIndex + 9;
+        NSLog(@"word = %@", str);
+    }
 }
 
 /**
