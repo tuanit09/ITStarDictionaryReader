@@ -7,6 +7,7 @@
 //
 
 #import "ITDictionary.h"
+#import "NSString+Value.h"
 
 #define kInfoFileExtension     @"ifo"
 #define kIndexFileExtension    @"idx"
@@ -16,7 +17,7 @@
 
 @interface ITDictionary()
 
-@property (strong, nonatomic) NSArray *entries; // override the property.
+@property (strong, nonatomic) NSMutableArray *entries; // override the property.
 
 @end
 
@@ -96,10 +97,38 @@
 /**
  Load info file
  */
+#define kInfoVersionKey                     @"version="
+#define kInfoBookNameKey                    @"bookname="
+#define kInfoWordCountKey                   @"wordcount="
+#define kInfoSynWordCountKey                @"synwordcount="
+#define kInfoIdxFileSizeKey                 @"idxfilesize="
+#define kInfoIdxOffsetBitsKey               @"idxoffsetbits="
+#define kInfoAuthorKey                      @"author="
+#define kInfoEmailKey                       @"email="
+#define kInfoWebsiteKey                     @"website="
+#define kInfoDescriptionKey                 @"description="
+#define kInfoDateKey                        @"date="
+#define kInfoSameTypeSequenceKey            @"sametypesequence="
+#define kInfoLineEndKey                     @"\n"
+
 - (void)loadInfoFile
 {
     NSData *data = [self dataForFile:self.infoFilePath];
-    NSLog(@"done %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+    NSString *infoString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    //    NSNumber *number = [NSNumber alloc] init
+
+    _version = [infoString substringBetweenBeinKey:kInfoVersionKey endKey:kInfoLineEndKey];
+    _bookName = [infoString substringBetweenBeinKey:kInfoBookNameKey endKey:kInfoLineEndKey];
+    _wordCount = [[infoString substringBetweenBeinKey:kInfoWordCountKey endKey:kInfoLineEndKey] unsignedIntegerValue];
+    _synWordCount = [[infoString substringBetweenBeinKey:kInfoSynWordCountKey endKey:kInfoLineEndKey] unsignedIntegerValue];
+    _idxFileSize = [[infoString substringBetweenBeinKey:kInfoIdxFileSizeKey endKey:kInfoLineEndKey] unsignedIntegerValue];
+    _idxOffsetBits = [[infoString substringBetweenBeinKey:kInfoIdxOffsetBitsKey endKey:kInfoLineEndKey] unsignedIntegerValue];
+    _author = [infoString substringBetweenBeinKey:kInfoAuthorKey endKey:kInfoLineEndKey];
+    _email = [infoString substringBetweenBeinKey:kInfoEmailKey endKey:kInfoLineEndKey];
+    _website = [infoString substringBetweenBeinKey:kInfoWebsiteKey endKey:kInfoLineEndKey];
+#warning incompleted
+    _sameTypeSequence = [infoString substringBetweenBeinKey:kInfoSameTypeSequenceKey endKey:kInfoLineEndKey];
 }
 
 /**
@@ -111,7 +140,7 @@
     Byte *bytes = (Byte *)data.bytes;
     NSInteger beginDataIndex = 0;
     NSInteger endDataIndex;
-
+    return;
     NSInteger wordCount = 0;
     while (beginDataIndex < [data length]) {
         endDataIndex = beginDataIndex;

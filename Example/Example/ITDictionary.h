@@ -12,11 +12,26 @@
 
 @interface ITDictionary : NSObject
 
-@property (strong, nonatomic) NSString        *infoFilePath;      // path to info file.
-@property (strong, nonatomic) NSString        *indexFilePath;     // path to index file.
-@property (strong, nonatomic) NSString        *dataFilePath;      // path to data file.
-@property (strong, nonatomic) NSString        *synFilePath;       // path to synonym file.
+@property (strong, readonly, nonatomic) NSString        *infoFilePath;      // path to info file.
+@property (strong, readonly, nonatomic) NSString        *indexFilePath;     // path to index file.
+@property (strong, readonly, nonatomic) NSString        *dataFilePath;      // path to data file.
+@property (strong, readonly, nonatomic) NSString        *synFilePath;       // path to synonym file.
 @property (strong, readonly, nonatomic) NSArray         *entries;           // list of entries initialized at same time with ITDictionary object.
+
+/* info */
+@property (strong, readonly, nonatomic) NSString        *version;
+@property (strong, readonly, nonatomic) NSString        *bookName;
+@property (assign, readonly, nonatomic) NSUInteger      wordCount;
+@property (assign, readonly, nonatomic) NSUInteger      synWordCount;
+@property (assign, readonly, nonatomic) NSUInteger      idxFileSize;
+@property (assign, readonly, nonatomic) NSUInteger      idxOffsetBits;
+@property (strong, readonly, nonatomic) NSString        *author;
+@property (strong, readonly, nonatomic) NSString        *email;
+@property (strong, readonly, nonatomic) NSString        *website;
+@property (strong, readonly, nonatomic) NSString        *description;
+@property (strong, readonly, nonatomic) NSDate          *date;
+@property (strong, readonly, nonatomic) NSString        *sameTypeSequence;
+
 
 /**
  Init new ITDictionary object with its' data folder.

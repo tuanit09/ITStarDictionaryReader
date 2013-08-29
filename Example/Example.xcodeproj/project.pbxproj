@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756A9DB17CFA80C00B55436 /* NSString+Value.m */; };
 		D94D7A8217CB9CCE0026B96C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8117CB9CCE0026B96C /* UIKit.framework */; };
 		D94D7A8417CB9CCE0026B96C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8317CB9CCE0026B96C /* Foundation.framework */; };
 		D94D7A8617CB9CCE0026B96C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8517CB9CCE0026B96C /* CoreGraphics.framework */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1756A9DA17CFA80C00B55436 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
+		1756A9DB17CFA80C00B55436 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
 		D94D7A7E17CB9CCE0026B96C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94D7A8117CB9CCE0026B96C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D94D7A8317CB9CCE0026B96C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +93,8 @@
 		D94D7A8717CB9CCE0026B96C /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				1756A9DA17CFA80C00B55436 /* NSString+Value.h */,
+				1756A9DB17CFA80C00B55436 /* NSString+Value.m */,
 				D94D7A9017CB9CCE0026B96C /* ITAppDelegate.h */,
 				D94D7A9117CB9CCE0026B96C /* ITAppDelegate.m */,
 				D94D7A9E17CB9D330026B96C /* ITEntry.h */,
@@ -199,6 +204,7 @@
 				D94D7A9217CB9CCE0026B96C /* ITAppDelegate.m in Sources */,
 				D94D7AA017CB9D330026B96C /* ITEntry.m in Sources */,
 				D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */,
+				1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
