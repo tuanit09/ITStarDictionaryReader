@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class ITEntry;
+@class ITDictionary;
+
+@protocol ITDictionaryDelegate <NSObject>
+
+-(void)willLoadDictionary:(ITDictionary *)dic;
+-(void)didLoadDictionary:(ITDictionary *)dic;
+
+@end
 
 @interface ITDictionary : NSObject
 
@@ -16,7 +23,10 @@
 @property (strong, readonly, nonatomic) NSString        *indexFilePath;     // path to index file.
 @property (strong, readonly, nonatomic) NSString        *dataFilePath;      // path to data file.
 @property (strong, readonly, nonatomic) NSString        *synFilePath;       // path to synonym file.
-@property (strong, readonly, nonatomic) NSArray         *entries;           // list of entries initialized at same time with ITDictionary object.
+@property (strong, readonly, nonatomic) NSArray         *wordEntries;           // list of entries initialized at same time with ITDictionary object.
+@property (strong, readonly, nonatomic) NSArray         *wordSectionEntries;
+@property (assign, readonly, nonatomic) NSUInteger      sectionAIndex;
+@property (assign, readonly, nonatomic) unichar         letterAValue;
 
 /* info */
 @property (strong, readonly, nonatomic) NSString        *version;
@@ -47,6 +57,6 @@
  Load dictionary data including: info file, index file, syn file.
  Data is loaded asynchronously.
  */
-- (void)loadDictionary;
+- (void)loadDictionaryForTarget:(id<ITDictionaryDelegate>)delegate;
 
 @end

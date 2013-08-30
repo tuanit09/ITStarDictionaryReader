@@ -7,8 +7,12 @@
 //
 
 #import "ITDictionary.h"
+#import "ITWordEntry.h"
+#import "ITWordSectionEntry.h"
+#import "ITConstants.h"
 #import "NSString+Value.h"
 
+#define kInfoWordSectionCount   50
 #define kInfoFileExtension     @"ifo"
 #define kIndexFileExtension    @"idx"
 #define kDataFileExtension     @"dz"
@@ -16,12 +20,16 @@
 #define kNewLine                @"\n"
 
 @interface ITDictionary()
-
-@property (strong, nonatomic) NSMutableArray *entries; // override the property.
+{
+    NSMutableArray      *_wordEntries;
+    NSMutableArray      *_wordSectionEntries;
+}
 
 @end
 
 @implementation ITDictionary
+@synthesize wordEntries             =       _wordEntries;
+@synthesize wordSectionEntries      =       _wordSectionEntries;
 
 - (id)init
 {
@@ -75,12 +83,16 @@
     return self;
 }
 
-- (void)loadDictionary
+- (void)loadDictionaryForTarget:(id<ITDictionaryDelegate>)delegate
 {
+    [delegate willLoadDictionary:self];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self loadInfoFile];
         [self loadIndexFile];
         [self loadSynFile];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [delegate didLoadDictionary:self];
+        });
     });
 }
 
@@ -94,6 +106,7 @@
 {
     return [NSData dataWithContentsOfFile:filePath];
 }
+
 /**
  Load info file
  */
@@ -116,8 +129,6 @@
     NSData *data = [self dataForFile:self.infoFilePath];
     NSString *infoString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-    //    NSNumber *number = [NSNumber alloc] init
-
     _version = [infoString substringBetweenBeinKey:kInfoVersionKey endKey:kInfoLineEndKey];
     _bookName = [infoString substringBetweenBeinKey:kInfoBookNameKey endKey:kInfoLineEndKey];
     _wordCount = [[infoString substringBetweenBeinKey:kInfoWordCountKey endKey:kInfoLineEndKey] unsignedIntegerValue];
@@ -127,30 +138,116 @@
     _author = [infoString substringBetweenBeinKey:kInfoAuthorKey endKey:kInfoLineEndKey];
     _email = [infoString substringBetweenBeinKey:kInfoEmailKey endKey:kInfoLineEndKey];
     _website = [infoString substringBetweenBeinKey:kInfoWebsiteKey endKey:kInfoLineEndKey];
+    _description = [infoString substringBetweenBeinKey:kInfoDescriptionKey endKey:kInfoLineEndKey];
 #warning incompleted
+//    _date   = [infoString substringBetweenBeinKey:kInfoDateKey endKey:kInfoLineEndKey];
     _sameTypeSequence = [infoString substringBetweenBeinKey:kInfoSameTypeSequenceKey endKey:kInfoLineEndKey];
 }
 
 /**
  Load index file
  */
+- (void)getInt64:(NSUInteger *)pValue fromBytes:(Byte *)pBytes
+{
+    
+}
+- (void)getInt32:(NSUInteger *)pValue fromBytes:(Byte *)pBytes
+{
+    uint32_t rawVal = *(uint32_t *)pBytes;
+    *pValue = (rawVal >> 24) | ((rawVal & 0x00FF0000) >> 16) | ((rawVal & 0x0000FF00) << 8) | ((rawVal & 0x000000FF) << 24);
+}
+- (Byte)getIndex:(NSUInteger *)pIndex length:(NSUInteger *)pLenght fromBytes:(Byte *)pBytes
+{
+    // get index => an 64bits or 32bits number
+    Byte shift = 0;
+    if (self.idxOffsetBits == 64) {
+        shift = 8;
+        [self getInt64:pIndex fromBytes:pBytes];
+    }
+    else
+    {
+        shift = 4;
+        [self getInt32:pIndex fromBytes:pBytes];
+    }
+
+    // get length => an 32bits number
+    [self getInt32:pLenght fromBytes:pBytes + shift];
+    shift += 4;
+
+    return shift;
+}
+
 - (void)loadIndexFile
 {
-    NSData *data = [self dataForFile:self.indexFilePath];
+    // info file was not successfully loaded
+    if (self.wordCount == 0) {
+        return;
+    }
+    _letterAValue = !0; // maximum value
+    _wordEntries = [[NSMutableArray alloc] initWithCapacity:self.wordCount];    // init array of entries
+    _wordSectionEntries = [[NSMutableArray alloc] initWithCapacity:kInfoWordSectionCount];
+
+    NSData *data = [self dataForFile:self.indexFilePath];    // load index file
     Byte *bytes = (Byte *)data.bytes;
-    NSInteger beginDataIndex = 0;
-    NSInteger endDataIndex;
-    return;
-    NSInteger wordCount = 0;
-    while (beginDataIndex < [data length]) {
-        endDataIndex = beginDataIndex;
-        while (bytes[endDataIndex])
-        {
-            ++endDataIndex;
+    Byte *pBeginByte;
+    Byte *pEndByte = bytes;
+    NSUInteger wordCount = self.wordCount;
+    NSUInteger sum = 0;
+
+    /* in-while variables */
+    NSString *strWord;
+    NSUInteger meaningIndex;
+    NSUInteger meaningLength;
+    ITWordEntry *entry;
+    ITWordSectionEntry *lastSectionEntry;
+    ITWordSectionEntry *nextSectionEntry;
+    unichar currentFirstLetter;
+    NSString *uperCaseWord;
+    while (wordCount) {
+        /* begin the word */
+        pBeginByte = pEndByte;
+
+        /* find the end of the word '\0' */
+        while(*(pEndByte += bytesMapUTF8[*pEndByte]));
+
+        /* get the word out of bytes */
+        strWord = [[NSString alloc] initWithBytes:pBeginByte length:pEndByte - pBeginByte encoding:NSUTF8StringEncoding];
+
+        /* get index and length */
+        pEndByte += [self getIndex:&meaningIndex length:&meaningLength fromBytes:++pEndByte];
+
+        /* add word to entries */
+        entry = [[ITWordEntry alloc] initWithWord:strWord offset:meaningIndex length:meaningLength];
+        [_wordEntries addObject:entry];
+
+        /* add new section for the word (if needed) */
+        if ((lastSectionEntry = [_wordSectionEntries lastObject])) {
+            uperCaseWord = [entry.word uppercaseString];
+            if (![uperCaseWord hasPrefix:lastSectionEntry.firstLetter]) {
+                lastSectionEntry.wordCount = [_wordEntries count] - lastSectionEntry.firstWordIndex - 1;
+                nextSectionEntry = [[ITWordSectionEntry alloc] initWithFirstLetter:[[entry.word substringToIndex:1] uppercaseString] firstWordIndex:[_wordEntries count] - 1 wordCount:0];
+                sum += lastSectionEntry.wordCount;
+
+                currentFirstLetter = [lastSectionEntry.firstLetter characterAtIndex:0];
+                if (currentFirstLetter >= 'A' && currentFirstLetter < _letterAValue) {
+                    _letterAValue = currentFirstLetter;
+                    _sectionAIndex = [_wordSectionEntries count];
+                }
+            }
         }
-        NSString *str = [[NSString alloc] initWithBytes:bytes + beginDataIndex length:endDataIndex - beginDataIndex encoding:NSUTF8StringEncoding];
-        beginDataIndex = endDataIndex + 9;
-        NSLog(@"word = %@", str);
+        else
+        {
+            nextSectionEntry = [[ITWordSectionEntry alloc] initWithFirstLetter:[[entry.word substringToIndex:1] uppercaseString] firstWordIndex:0 wordCount:0];
+        }
+        if (nextSectionEntry) {
+            [_wordSectionEntries addObject:nextSectionEntry];
+        }
+        wordCount--;
+    }
+    lastSectionEntry = [_wordSectionEntries lastObject];
+    if (lastSectionEntry) {
+        lastSectionEntry.wordCount = [_wordEntries count] - lastSectionEntry.firstWordIndex;
+        sum += lastSectionEntry.wordCount;
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756A9DB17CFA80C00B55436 /* NSString+Value.m */; };
+		D92AE14F17D06FE4005EAF4E /* ITWordSectionEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D92AE14E17D06FE4005EAF4E /* ITWordSectionEntry.m */; };
 		D94D7A8217CB9CCE0026B96C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8117CB9CCE0026B96C /* UIKit.framework */; };
 		D94D7A8417CB9CCE0026B96C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8317CB9CCE0026B96C /* Foundation.framework */; };
 		D94D7A8617CB9CCE0026B96C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8517CB9CCE0026B96C /* CoreGraphics.framework */; };
@@ -17,16 +18,20 @@
 		D94D7A9417CB9CCE0026B96C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9317CB9CCE0026B96C /* Default.png */; };
 		D94D7A9617CB9CCE0026B96C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9517CB9CCE0026B96C /* Default@2x.png */; };
 		D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */; };
-		D94D7AA017CB9D330026B96C /* ITEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7A9F17CB9D330026B96C /* ITEntry.m */; };
+		D94D7AA017CB9D330026B96C /* ITWordEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7A9F17CB9D330026B96C /* ITWordEntry.m */; };
 		D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7AA217CB9E260026B96C /* ITDictionary.m */; };
 		D9630F2C17CE6504005A77AD /* en_vi.dict.dz in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2917CE6504005A77AD /* en_vi.dict.dz */; };
 		D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2A17CE6504005A77AD /* en_vi.idx */; };
 		D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2B17CE6504005A77AD /* en_vi.ifo */; };
+		D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1756A9DA17CFA80C00B55436 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
 		1756A9DB17CFA80C00B55436 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
+		D92AE14A17D04FD3005EAF4E /* ITConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITConstants.h; sourceTree = "<group>"; };
+		D92AE14D17D06FE4005EAF4E /* ITWordSectionEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITWordSectionEntry.h; sourceTree = "<group>"; };
+		D92AE14E17D06FE4005EAF4E /* ITWordSectionEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordSectionEntry.m; sourceTree = "<group>"; };
 		D94D7A7E17CB9CCE0026B96C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94D7A8117CB9CCE0026B96C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D94D7A8317CB9CCE0026B96C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,13 +45,15 @@
 		D94D7A9317CB9CCE0026B96C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D94D7A9517CB9CCE0026B96C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D94D7A9E17CB9D330026B96C /* ITEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITEntry.h; sourceTree = "<group>"; };
-		D94D7A9F17CB9D330026B96C /* ITEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITEntry.m; sourceTree = "<group>"; };
+		D94D7A9E17CB9D330026B96C /* ITWordEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITWordEntry.h; sourceTree = "<group>"; };
+		D94D7A9F17CB9D330026B96C /* ITWordEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordEntry.m; sourceTree = "<group>"; };
 		D94D7AA117CB9E260026B96C /* ITDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionary.h; sourceTree = "<group>"; };
 		D94D7AA217CB9E260026B96C /* ITDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionary.m; sourceTree = "<group>"; };
 		D9630F2917CE6504005A77AD /* en_vi.dict.dz */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.dict.dz; sourceTree = "<group>"; };
 		D9630F2A17CE6504005A77AD /* en_vi.idx */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.idx; sourceTree = "<group>"; };
 		D9630F2B17CE6504005A77AD /* en_vi.ifo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en_vi.ifo; sourceTree = "<group>"; };
+		D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionaryEngine.h; sourceTree = "<group>"; };
+		D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionaryEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +100,19 @@
 		D94D7A8717CB9CCE0026B96C /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				1756A9DA17CFA80C00B55436 /* NSString+Value.h */,
-				1756A9DB17CFA80C00B55436 /* NSString+Value.m */,
 				D94D7A9017CB9CCE0026B96C /* ITAppDelegate.h */,
 				D94D7A9117CB9CCE0026B96C /* ITAppDelegate.m */,
-				D94D7A9E17CB9D330026B96C /* ITEntry.h */,
-				D94D7A9F17CB9D330026B96C /* ITEntry.m */,
+				D92AE14A17D04FD3005EAF4E /* ITConstants.h */,
+				1756A9DA17CFA80C00B55436 /* NSString+Value.h */,
+				1756A9DB17CFA80C00B55436 /* NSString+Value.m */,
+				D94D7A9E17CB9D330026B96C /* ITWordEntry.h */,
+				D94D7A9F17CB9D330026B96C /* ITWordEntry.m */,
+				D92AE14D17D06FE4005EAF4E /* ITWordSectionEntry.h */,
+				D92AE14E17D06FE4005EAF4E /* ITWordSectionEntry.m */,
 				D94D7AA117CB9E260026B96C /* ITDictionary.h */,
 				D94D7AA217CB9E260026B96C /* ITDictionary.m */,
+				D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */,
+				D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */,
 				D94D7A8817CB9CCE0026B96C /* Supporting Files */,
 			);
 			path = Example;
@@ -202,9 +214,11 @@
 			files = (
 				D94D7A8E17CB9CCE0026B96C /* main.m in Sources */,
 				D94D7A9217CB9CCE0026B96C /* ITAppDelegate.m in Sources */,
-				D94D7AA017CB9D330026B96C /* ITEntry.m in Sources */,
+				D94D7AA017CB9D330026B96C /* ITWordEntry.m in Sources */,
 				D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */,
 				1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */,
+				D92AE14F17D06FE4005EAF4E /* ITWordSectionEntry.m in Sources */,
+				D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

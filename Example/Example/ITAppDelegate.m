@@ -20,7 +20,7 @@
     NSString *indexFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"idx"];
     NSString *dataFile = [[NSBundle mainBundle] pathForResource:@"en_vi.dict" ofType:@"dz"];
     ITDictionary *dictionary = [[ITDictionary alloc] initWithInfoFile:infoFile indexFile:indexFile dataFile:dataFile synFile:@"abc"];
-    [dictionary loadDictionary];
+    [dictionary loadDictionaryForTarget:nil];
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

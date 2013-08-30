@@ -1,5 +1,5 @@
 //
-//  NSString+KeyValuePair.h
+//  NSString+Value.h
 //  Example
 //
 //  Created by Tuan Anh Nguyen on 8/29/13.
