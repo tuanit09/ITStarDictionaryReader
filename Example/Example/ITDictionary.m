@@ -11,6 +11,7 @@
 #import "ITWordSectionEntry.h"
 #import "ITConstants.h"
 #import "NSString+Value.h"
+#import "ITDictionaryEngine.h"
 
 #define kInfoWordSectionCount   50
 #define kInfoFileExtension     @"ifo"
@@ -69,7 +70,7 @@
 
 - (id)initWithInfoFile:(NSString *)infoPath indexFile:(NSString *)indexPath dataFile:(NSString *)dataPath synFile:(NSString *)synPath
 {
-    if (!infoPath || !indexPath || !dataPath || !synPath) {
+    if (!infoPath || !indexPath || !dataPath) {
         // invalid parameter
         return nil;
     }
@@ -212,7 +213,6 @@
 
         /* get the word out of bytes */
         strWord = [[NSString alloc] initWithBytes:pBeginByte length:pEndByte - pBeginByte encoding:NSUTF8StringEncoding];
-
         /* get index and length */
         pEndByte += [self getIndex:&meaningIndex length:&meaningLength fromBytes:++pEndByte];
 

@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @class ITDictionary;
+@class ITWordEntry;
 
-@protocol ITDictionaryDelegate <NSObject>
+@protocol ITDictionaryEngineDelegate <NSObject>
 
 - (void)dictionaryEngineWillSearchInDictionary:(ITDictionary *)dictionary;
 - (void)dictionaryEngineDidSearchInDictionary:(ITDictionary *)dictionary withResult:(NSArray *)results;
@@ -19,6 +20,8 @@
 
 @interface ITDictionaryEngine : NSObject
 
-+ (void)searchForWord:(NSString *)word inDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryDelegate>)delegate;
++ (void)searchForWord:(NSString *)word inDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate;
++ (NSString *)meaningForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary;
++ (NSArray *)synonymsForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary;
 
 @end

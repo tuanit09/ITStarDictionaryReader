@@ -9,11 +9,12 @@
 #import "ITDictionaryEngine.h"
 #import "ITDictionary.h"
 #import "ITWordSectionEntry.h"
+#import "ITWordEntry.h"
 
 @implementation ITDictionaryEngine
 
 
-+ (void)searchForWord:(NSString *)word inDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryDelegate>)delegate
++ (void)searchForWord:(NSString *)word inDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate
 {
     [delegate dictionaryEngineWillSearchInDictionary:dictionary];
     __block NSString *__word = word;
@@ -45,13 +46,51 @@
                         break;
                     }
                 } while (lastIndex > firstIndex);
+                if (searchedLetterVal == middleLetterVal) {
+                    tempDict = [[NSMutableArray alloc] initWithCapacity:middleSectionEntry.wordCount];
+                    NSUInteger entryIndex = middleSectionEntry.firstWordIndex;
+                    ITWordEntry *wordEntry = [dictionary.wordEntries objectAtIndex:entryIndex];
+                    NSString *entryWord = [wordEntry.word uppercaseString];
+                    while ([__word compare:entryWord] == NSOrderedDescending) {
+                        //  NSLog(@"compared word = %@", entryWord);
+                        entryIndex++;
+                        wordEntry = [dictionary.wordEntries objectAtIndex:entryIndex];
+                        entryWord = [wordEntry.word uppercaseString];
+                        if (entryIndex >= [dictionary.wordEntries count]) {
+                            break;
+                        }
+                    }
+                    NSUInteger maxIndex = middleSectionEntry.wordCount + middleSectionEntry.firstWordIndex;
+                    while ([entryWord hasPrefix:__word]) {
+                        [tempDict addObject:wordEntry];
+                        entryIndex ++;
 
-                
+                        if (entryIndex >= maxIndex) {
+                            break;
+                        }
+                        
+                        wordEntry = [dictionary.wordEntries objectAtIndex:entryIndex];
+                        entryWord = [wordEntry.word uppercaseString];
+                    }
+                }
                 results = tempDict;
             }
             [delegate dictionaryEngineDidSearchInDictionary:dictionary withResult:results];
         });
     });
+}
+
++ (NSString *)meaningForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary
+{
+    NSFileHandle *file = [NSFileHandle fileHandleForReadingAtPath:dictionary.dataFilePath];
+    [file seekToFileOffset:entry.offset];
+    NSData *meaningData = [file readDataOfLength:entry.length];
+    return [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding];
+}
+
++ (NSArray *)synonymsForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary
+{
+    return nil;
 }
 
 @end
