@@ -85,6 +85,8 @@
     NSFileHandle *file = [NSFileHandle fileHandleForReadingAtPath:dictionary.dataFilePath];
     [file seekToFileOffset:entry.offset];
     NSData *meaningData = [file readDataOfLength:entry.length];
+    NSLog(@"meaning = %@", [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding]);
+    [file closeFile];
     return [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding];
 }
 

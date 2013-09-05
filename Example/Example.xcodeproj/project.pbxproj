@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756A9DB17CFA80C00B55436 /* NSString+Value.m */; };
+		17D4B0C017D8E0FE00555E40 /* en_vi.dict.dz in Resources */ = {isa = PBXBuildFile; fileRef = 17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */; };
+		17D774F017D8C10400526659 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */; };
+		17D774F317D8C26D00526659 /* ITWordsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D774F217D8C26D00526659 /* ITWordsTableViewController.m */; };
+		17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D774F517D8C92400526659 /* ITMeaningViewController.m */; };
 		D92AE14F17D06FE4005EAF4E /* ITWordSectionEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D92AE14E17D06FE4005EAF4E /* ITWordSectionEntry.m */; };
 		D94D7A8217CB9CCE0026B96C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8117CB9CCE0026B96C /* UIKit.framework */; };
 		D94D7A8417CB9CCE0026B96C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94D7A8317CB9CCE0026B96C /* Foundation.framework */; };
@@ -20,7 +24,6 @@
 		D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */; };
 		D94D7AA017CB9D330026B96C /* ITWordEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7A9F17CB9D330026B96C /* ITWordEntry.m */; };
 		D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7AA217CB9E260026B96C /* ITDictionary.m */; };
-		D9630F2C17CE6504005A77AD /* en_vi.dict.dz in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2917CE6504005A77AD /* en_vi.dict.dz */; };
 		D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2A17CE6504005A77AD /* en_vi.idx */; };
 		D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2B17CE6504005A77AD /* en_vi.ifo */; };
 		D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */; };
@@ -29,6 +32,12 @@
 /* Begin PBXFileReference section */
 		1756A9DA17CFA80C00B55436 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
 		1756A9DB17CFA80C00B55436 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
+		17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.dict.dz; sourceTree = "<group>"; };
+		17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
+		17D774F117D8C26D00526659 /* ITWordsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITWordsTableViewController.h; sourceTree = "<group>"; };
+		17D774F217D8C26D00526659 /* ITWordsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordsTableViewController.m; sourceTree = "<group>"; };
+		17D774F417D8C92400526659 /* ITMeaningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITMeaningViewController.h; sourceTree = "<group>"; };
+		17D774F517D8C92400526659 /* ITMeaningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITMeaningViewController.m; sourceTree = "<group>"; };
 		D92AE14A17D04FD3005EAF4E /* ITConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITConstants.h; sourceTree = "<group>"; };
 		D92AE14D17D06FE4005EAF4E /* ITWordSectionEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITWordSectionEntry.h; sourceTree = "<group>"; };
 		D92AE14E17D06FE4005EAF4E /* ITWordSectionEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordSectionEntry.m; sourceTree = "<group>"; };
@@ -49,7 +58,6 @@
 		D94D7A9F17CB9D330026B96C /* ITWordEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordEntry.m; sourceTree = "<group>"; };
 		D94D7AA117CB9E260026B96C /* ITDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionary.h; sourceTree = "<group>"; };
 		D94D7AA217CB9E260026B96C /* ITDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionary.m; sourceTree = "<group>"; };
-		D9630F2917CE6504005A77AD /* en_vi.dict.dz */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.dict.dz; sourceTree = "<group>"; };
 		D9630F2A17CE6504005A77AD /* en_vi.idx */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.idx; sourceTree = "<group>"; };
 		D9630F2B17CE6504005A77AD /* en_vi.ifo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en_vi.ifo; sourceTree = "<group>"; };
 		D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionaryEngine.h; sourceTree = "<group>"; };
@@ -113,6 +121,11 @@
 				D94D7AA217CB9E260026B96C /* ITDictionary.m */,
 				D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */,
 				D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */,
+				17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */,
+				17D774F417D8C92400526659 /* ITMeaningViewController.h */,
+				17D774F517D8C92400526659 /* ITMeaningViewController.m */,
+				17D774F117D8C26D00526659 /* ITWordsTableViewController.h */,
+				17D774F217D8C26D00526659 /* ITWordsTableViewController.m */,
 				D94D7A8817CB9CCE0026B96C /* Supporting Files */,
 			);
 			path = Example;
@@ -136,7 +149,7 @@
 		D9630F2817CE6504005A77AD /* stardict_en_vi */ = {
 			isa = PBXGroup;
 			children = (
-				D9630F2917CE6504005A77AD /* en_vi.dict.dz */,
+				17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */,
 				D9630F2A17CE6504005A77AD /* en_vi.idx */,
 				D9630F2B17CE6504005A77AD /* en_vi.ifo */,
 			);
@@ -199,9 +212,10 @@
 				D94D7A9417CB9CCE0026B96C /* Default.png in Resources */,
 				D94D7A9617CB9CCE0026B96C /* Default@2x.png in Resources */,
 				D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */,
-				D9630F2C17CE6504005A77AD /* en_vi.dict.dz in Resources */,
 				D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */,
 				D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */,
+				17D774F017D8C10400526659 /* Storyboard_iPhone.storyboard in Resources */,
+				17D4B0C017D8E0FE00555E40 /* en_vi.dict.dz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +233,8 @@
 				1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */,
 				D92AE14F17D06FE4005EAF4E /* ITWordSectionEntry.m in Sources */,
 				D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */,
+				17D774F317D8C26D00526659 /* ITWordsTableViewController.m in Sources */,
+				17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

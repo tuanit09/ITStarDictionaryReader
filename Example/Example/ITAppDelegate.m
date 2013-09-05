@@ -7,23 +7,11 @@
 //
 
 #import "ITAppDelegate.h"
-#import "ITDictionary.h"
 
 @implementation ITAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-
-    NSString *infoFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"ifo"];
-    NSString *indexFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"idx"];
-    NSString *dataFile = [[NSBundle mainBundle] pathForResource:@"en_vi.dict" ofType:@"dz"];
-    ITDictionary *dictionary = [[ITDictionary alloc] initWithInfoFile:infoFile indexFile:indexFile dataFile:dataFile synFile:@"abc"];
-    [dictionary loadDictionaryForTarget:nil];
-
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     return YES;
 }
 
