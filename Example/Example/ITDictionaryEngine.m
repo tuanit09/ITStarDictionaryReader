@@ -10,6 +10,7 @@
 #import "ITDictionary.h"
 #import "ITWordSectionEntry.h"
 #import "ITWordEntry.h"
+#import "NSData+ZIP.h"
 
 @implementation ITDictionaryEngine
 
@@ -85,9 +86,8 @@
     NSFileHandle *file = [NSFileHandle fileHandleForReadingAtPath:dictionary.dataFilePath];
     [file seekToFileOffset:entry.offset];
     NSData *meaningData = [file readDataOfLength:entry.length];
-    NSLog(@"meaning = %@", [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding]);
     [file closeFile];
-    return [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithData:[meaningData uncompressedData] encoding:NSUTF8StringEncoding];
 }
 
 + (NSArray *)synonymsForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary

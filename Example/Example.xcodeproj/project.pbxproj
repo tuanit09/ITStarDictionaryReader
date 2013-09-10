@@ -26,6 +26,8 @@
 		D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7AA217CB9E260026B96C /* ITDictionary.m */; };
 		D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2A17CE6504005A77AD /* en_vi.idx */; };
 		D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2B17CE6504005A77AD /* en_vi.ifo */; };
+		D9D3C68C17DDB381007FB7B3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3C68B17DDB381007FB7B3 /* libz.dylib */; };
+		D9D3C68F17DDB3F6007FB7B3 /* NSData+ZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */; };
 		D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,9 @@
 		D94D7AA217CB9E260026B96C /* ITDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionary.m; sourceTree = "<group>"; };
 		D9630F2A17CE6504005A77AD /* en_vi.idx */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.idx; sourceTree = "<group>"; };
 		D9630F2B17CE6504005A77AD /* en_vi.ifo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en_vi.ifo; sourceTree = "<group>"; };
+		D9D3C68B17DDB381007FB7B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D9D3C68D17DDB3F6007FB7B3 /* NSData+ZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ZIP.h"; sourceTree = "<group>"; };
+		D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZIP.m"; sourceTree = "<group>"; };
 		D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionaryEngine.h; sourceTree = "<group>"; };
 		D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionaryEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D3C68C17DDB381007FB7B3 /* libz.dylib in Frameworks */,
 				D94D7A8217CB9CCE0026B96C /* UIKit.framework in Frameworks */,
 				D94D7A8417CB9CCE0026B96C /* Foundation.framework in Frameworks */,
 				D94D7A8617CB9CCE0026B96C /* CoreGraphics.framework in Frameworks */,
@@ -98,6 +104,7 @@
 		D94D7A8017CB9CCE0026B96C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9D3C68B17DDB381007FB7B3 /* libz.dylib */,
 				D94D7A8117CB9CCE0026B96C /* UIKit.framework */,
 				D94D7A8317CB9CCE0026B96C /* Foundation.framework */,
 				D94D7A8517CB9CCE0026B96C /* CoreGraphics.framework */,
@@ -121,6 +128,8 @@
 				D94D7AA217CB9E260026B96C /* ITDictionary.m */,
 				D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */,
 				D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */,
+				D9D3C68D17DDB3F6007FB7B3 /* NSData+ZIP.h */,
+				D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */,
 				17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */,
 				17D774F417D8C92400526659 /* ITMeaningViewController.h */,
 				17D774F517D8C92400526659 /* ITMeaningViewController.m */,
@@ -235,6 +244,7 @@
 				D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */,
 				17D774F317D8C26D00526659 /* ITWordsTableViewController.m in Sources */,
 				17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */,
+				D9D3C68F17DDB3F6007FB7B3 /* NSData+ZIP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
