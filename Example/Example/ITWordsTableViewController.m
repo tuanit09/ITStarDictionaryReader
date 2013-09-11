@@ -11,6 +11,7 @@
 #import "ITDictionary.h"
 #import "ITDictionaryEngine.h"
 #import "ITMeaningViewController.h"
+#import "NSString+ZipFileName.h"
 
 #define kShowMeaning    @"showMeaning"
 
@@ -18,7 +19,6 @@
 
 @property (strong, nonatomic) ITDictionary *dictionary;
 @property (strong, nonatomic) NSArray *entries;
-@property (strong, nonatomic) ITWordEntry *selectedEntry;
 
 @end
 
@@ -36,10 +36,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *infoFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"ifo"];
-    NSString *indexFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"idx"];
-    NSString *dataFile = [[NSBundle mainBundle] pathForResource:@"en_vi.dict" ofType:@"dz"];
-    self.dictionary = [[ITDictionary alloc] initWithInfoFile:infoFile indexFile:indexFile dataFile:dataFile synFile:nil];
+//    NSURL *infoFileURL = [[NSBundle mainBundle] URLForResource:@"dict.ifo" withExtension:kZipFileExtension];
+//    NSURL *idxFileURL = [[NSBundle mainBundle] URLForResource:@"dict.idx" withExtension:kZipFileExtension];
+//    NSURL *dataFileURL = [[NSBundle mainBundle] URLForResource:@"dict.blockData" withExtension:kZipFileExtension];
+//    NSURL *blockEntriesFileURL = [[NSBundle mainBundle] URLForResource:@"dict.blockEntries" withExtension:kZipFileExtension];
+//    NSURL *synFileURL   = nil;
+//    self.dictionary = [[ITDictionary alloc] initWithInfoFile:infoFileURL indexFile:idxFileURL dataFile:dataFileURL blockEntriesFile:blockEntriesFileURL synFile:synFileURL];
+    NSURL *folderURL = [[NSBundle mainBundle] bundleURL];
+    self.dictionary = [[ITDictionary alloc] initWithDictionaryFolder:folderURL];
     [self.dictionary loadDictionaryForTarget:self];
 }
 
@@ -59,8 +63,14 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:kShowMeaning]) {
+        NSUInteger selectedRow = [[self.tableView indexPathForSelectedRow] row];
+        ITWordEntry *selectedEntry = [self.entries objectAtIndex:selectedRow];
+        NSString *word = selectedEntry.word;
+        NSString *meaning = [ITDictionaryEngine meaningForEntry:selectedEntry inDictionary:self.dictionary];
         ITMeaningViewController *meaningViewController = (ITMeaningViewController *)segue.destinationViewController;
-        meaningViewController.fullMeaning = [ITDictionaryEngine meaningForEntry:self.selectedEntry inDictionary:self.dictionary];
+
+        [meaningViewController setWord:word meaning:meaning];
+
     }
 }
 
@@ -78,7 +88,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -94,12 +104,6 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.searchBar resignFirstResponder];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.selectedEntry = [self.entries objectAtIndex:[indexPath row]];
-    [self performSegueWithIdentifier:kShowMeaning sender:self];
 }
 
 #pragma -mark Search Bar Delegate

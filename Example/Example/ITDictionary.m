@@ -8,13 +8,16 @@
 
 #import "ITDictionary.h"
 #import "ITWordEntry.h"
+#import "ITZipBlockEntry.h"
 #import "ITWordSectionEntry.h"
 #import "ITConstants.h"
 #import "NSString+Value.h"
 #import "ITDictionaryEngine.h"
 #import "NSString+ZipFileName.h"
+#import "NSData+ZIP.h"
 
 #define kInfoWordSectionCount       50
+#define kBlockNumber                5
 #define kInfoFileExtension          kZipInfoFileExtension
 #define kIndexFileExtension         kZipIndexFileExtension
 #define kDataFileExtension          kZipDataBlockFileExtension
@@ -45,15 +48,15 @@
     NSURL *infoFileURL = nil;
     NSURL *indexFileURL = nil;
     NSURL *dataFileURL = nil;
+    NSURL *blockEntriesFileURL;
     NSURL * synFileURL = nil;
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles error:nil];
-    if ([files count] < 3) {
+    if ([files count] < 4) {
         return nil;
     }
     for (NSURL *fileURL in files) {
-        NSString *fileExtension = [fileURL pathExtension];
+        NSString *fileExtension = [[fileURL pathComponents] lastObject];
         if ([fileExtension hasSuffix:kInfoFileExtension]) {
-
             infoFileURL = fileURL;
         }
         else if ([fileExtension hasSuffix:kIndexFileExtension])
@@ -64,28 +67,31 @@
         {
             dataFileURL = fileURL;
         }
+        else if ([fileExtension hasSuffix:kBlockEntriesFileExtension])
+        {
+            blockEntriesFileURL = fileURL;
+        }
         else if ([fileExtension hasSuffix:kSynFileExtension])
         {
             synFileURL = fileURL;
         }
     }
-    return [self initWithInfoFile:infoFileURL indexFile:indexFileURL dataFile:dataFileURL synFile:synFileURL];
+    return [self initWithInfoFile:infoFileURL indexFile:indexFileURL dataFile:dataFileURL blockEntriesFile:(NSURL *)blockEntriesFileURL synFile:synFileURL];
 }
 
-- (id) initWithInfoFile:(NSURL *)infoFileURL indexFile:(NSURL *)indexFileURL dataFile:(NSURL *)dataFileURL synFile:(NSURL *)synFileURL;
+- (id) initWithInfoFile:(NSURL *)infoFileURL indexFile:(NSURL *)indexFileURL dataFile:(NSURL *)dataFileURL blockEntriesFile:(NSURL *)blockEntriesFileURL synFile:(NSURL *)synFileURL
 {
-    if (!infoFileURL || !indexFileURL || !dataFileURL) {
-        // invalid parameter
-        return nil;
+    if (infoFileURL && indexFileURL && dataFileURL && blockEntriesFileURL) {
+        if (self = [super init]) {
+            _infoFileURL = infoFileURL;
+            _indexFileURL = indexFileURL;
+            _dataFileURL = dataFileURL;
+            _blockEntriesFileURL = blockEntriesFileURL;
+            _synFileURL = synFileURL;
+        }
+        return self;
     }
-
-    if (self = [super init]) {
-        _infoFileURL = infoFileURL;
-        _indexFileURL = indexFileURL;
-        _dataFileURL = dataFileURL;
-        _synFileURL = synFileURL;
-    }
-    return self;
+    return nil;
 }
 
 - (void)loadDictionaryForTarget:(id<ITDictionaryDelegate>)delegate
@@ -94,6 +100,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self loadInfoFile];
         [self loadIndexFile];
+        [self loadBlockEntries];
         [self loadSynFile];
         dispatch_async(dispatch_get_main_queue(), ^{
             [delegate didLoadDictionary:self];
@@ -131,8 +138,9 @@
 
 - (void)loadInfoFile
 {
-    NSData *data = [self dataForFile:self.infoFileURL];
+    NSData *data = [[self dataForFile:self.infoFileURL] uncompressedData];
     NSString *infoString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
     _version = [infoString substringBetweenBeinKey:kInfoVersionKey endKey:kInfoLineEndKey];
     _bookName = [infoString substringBetweenBeinKey:kInfoBookNameKey endKey:kInfoLineEndKey];
     _wordCount = [[infoString substringBetweenBeinKey:kInfoWordCountKey endKey:kInfoLineEndKey] unsignedIntegerValue];
@@ -146,39 +154,22 @@
 #warning incompleted
     //    _date   = [infoString substringBetweenBeinKey:kInfoDateKey endKey:kInfoLineEndKey];
     _sameTypeSequence = [infoString substringBetweenBeinKey:kInfoSameTypeSequenceKey endKey:kInfoLineEndKey];
-}
-
-/**
- Load index file
- */
-- (void)getInt64:(NSUInteger *)pValue fromBytes:(Byte *)pBytes
-{
     
 }
+
 - (void)getInt32:(NSUInteger *)pValue fromBytes:(Byte *)pBytes
 {
-    uint32_t rawVal = *(uint32_t *)pBytes;
-    *pValue = (rawVal >> 24) | ((rawVal & 0x00FF0000) >> 16) | ((rawVal & 0x0000FF00) << 8) | ((rawVal & 0x000000FF) << 24);
+//    uint32_t rawVal = *(uint32_t *)pBytes;
+//    *pValue = (rawVal >> 24) | ((rawVal & 0x00FF0000) >> 16) | ((rawVal & 0x0000FF00) << 8) | ((rawVal & 0x000000FF) << 24);
+    *pValue = *(uint32_t *)pBytes;
 }
 - (Byte)getIndex:(NSUInteger *)pIndex length:(NSUInteger *)pLenght fromBytes:(Byte *)pBytes
 {
-    // get index => an 64bits or 32bits number
-    Byte shift = 0;
-    if (self.idxOffsetBits == 64) {
-        shift = 8;
-        [self getInt64:pIndex fromBytes:pBytes];
-    }
-    else
-    {
-        shift = 4;
-        [self getInt32:pIndex fromBytes:pBytes];
-    }
-
+    // get index (offset) => an 32 bits number
+    [self getInt32:pIndex fromBytes:pBytes];
     // get length => an 32bits number
-    [self getInt32:pLenght fromBytes:pBytes + shift];
-    shift += 4;
-
-    return shift;
+    [self getInt32:pLenght fromBytes:pBytes + 4];
+    return 8;
 }
 
 - (void)loadIndexFile
@@ -191,7 +182,7 @@
     _wordEntries = [[NSMutableArray alloc] initWithCapacity:self.wordCount];    // init array of entries
     _wordSectionEntries = [[NSMutableArray alloc] initWithCapacity:kInfoWordSectionCount];
 
-    NSData *data = [self dataForFile:self.indexFileURL];    // load index file
+    NSData *data = [[self dataForFile:self.indexFileURL] uncompressedData];    // load index file
     Byte *bytes = (Byte *)data.bytes;
     Byte *pBeginByte;
     Byte *pEndByte = bytes;
@@ -224,6 +215,7 @@
         [_wordEntries addObject:entry];
 
         /* add new section for the word (if needed) */
+        nextSectionEntry = nil;
         if ((lastSectionEntry = [_wordSectionEntries lastObject])) {
             uperCaseWord = [entry.word uppercaseString];
             if (![uperCaseWord hasPrefix:lastSectionEntry.firstLetter]) {
@@ -252,6 +244,23 @@
         lastSectionEntry.wordCount = [_wordEntries count] - lastSectionEntry.firstWordIndex;
         sum += lastSectionEntry.wordCount;
     }
+}
+
+- (void)loadBlockEntries
+{
+    NSData *data = [[self dataForFile:self.blockEntriesFileURL] uncompressedData];
+    if ([data length] % [ITZipBlockEntry size]) {
+        return;
+    }
+    Byte *beginByte = (Byte *)data.bytes;
+    Byte *endByte = beginByte + data.length;
+    NSMutableArray *entries = [[NSMutableArray alloc] initWithCapacity:kBlockNumber];
+    while (beginByte < endByte) {
+        ITZipBlockEntry *entry = [[ITZipBlockEntry alloc] initWithBytes:beginByte];
+        beginByte += [ITZipBlockEntry size];
+        [entries addObject:entry];
+    }
+    _blockEntries = entries;
 }
 
 /**

@@ -9,8 +9,13 @@
 #import "ITMeaningViewController.h"
 
 @interface ITMeaningViewController ()
+{
+    NSString *_word;
+    NSString *_meaning;
+}
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *wordLabel;
 
 @end
 
@@ -28,7 +33,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.wordLabel setText:_word];
+    [self.textView setText:_meaning];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,15 +50,14 @@
 
 - (void)viewDidUnload {
     [self setTextView:nil];
+    [self setWordLabel:nil];
     [super viewDidUnload];
 }
 
-#pragma -mark Accessors
-
--(void)setFullMeaning:(NSString *)fullMeaning
+-(void)setWord:(NSString *)word meaning:(NSString *)meaning
 {
-    _fullMeaning = fullMeaning;
-    _textView.text = fullMeaning;
+    _word = word;
+    _meaning = meaning;
 }
 
 @end

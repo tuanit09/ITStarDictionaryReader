@@ -24,8 +24,8 @@
 {
     NSMutableData *data = [[NSMutableData alloc] init];
     [data appendData:[self.word dataUsingEncoding:NSUTF8StringEncoding]];
-    [data appendData:[NSData dataWithBytes:&_offset length:sizeof(UInt32)]];
-    [data appendData:[NSData dataWithBytes:&_length length:sizeof(UInt32)]];
+    [data appendData:[NSData dataWithBytes:&_offset length:sizeof(uint32_t)]];
+    [data appendData:[NSData dataWithBytes:&_length length:sizeof(uint32_t)]];
     return data;
 }
 

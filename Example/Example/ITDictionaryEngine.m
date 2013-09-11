@@ -10,6 +10,7 @@
 #import "ITDictionary.h"
 #import "ITWordSectionEntry.h"
 #import "ITWordEntry.h"
+#import "ITZipBlockEntry.h"
 #import "NSData+ZIP.h"
 
 @implementation ITDictionaryEngine
@@ -81,13 +82,31 @@
     });
 }
 
++(ITZipBlockEntry *)blockEntryForWordEntry:(ITWordEntry *)wordEntry inDictionary:(ITDictionary *)dictionary
+{
+    if ([dictionary.blockEntries count]) {
+        for (NSInteger i = [dictionary.blockEntries count] - 1; i >= 0; i--) {
+            ITZipBlockEntry *blockEntry = [dictionary.blockEntries objectAtIndex: i];
+            if (blockEntry.dataOffset <= wordEntry.offset) {
+                return blockEntry;
+            }
+        }
+    }
+    return nil;
+}
+
 + (NSString *)meaningForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary
 {
-    NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL:dictionary.dataFileURL error:nil];
-    [file seekToFileOffset:entry.offset];
-    NSData *meaningData = [file readDataOfLength:entry.length];
-    [file closeFile];
-    return [[NSString alloc] initWithData:[meaningData uncompressedData] encoding:NSUTF8StringEncoding];
+    ITZipBlockEntry *blockEntry = [self blockEntryForWordEntry:entry inDictionary:dictionary];
+    NSData *meaningData = nil;
+    if (blockEntry) {
+        NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL:dictionary.dataFileURL error:nil];
+        [file seekToFileOffset:blockEntry.zipOffset];
+        NSData *blockData = [[file readDataOfLength:blockEntry.zipSize] uncompressedData];
+        [file closeFile];
+        meaningData = [NSData dataWithBytes:blockData.bytes + entry.offset - blockEntry.dataOffset length:entry.length];
+    }
+    return [[NSString alloc] initWithData:meaningData encoding:NSUTF8StringEncoding];
 }
 
 + (NSArray *)synonymsForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary

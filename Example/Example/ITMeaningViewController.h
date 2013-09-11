@@ -10,6 +10,6 @@
 
 @interface ITMeaningViewController : UIViewController
 
-@property (strong, nonatomic) NSString *fullMeaning;
+-(void)setWord:(NSString *)word meaning:(NSString *)meaning;
 
 @end

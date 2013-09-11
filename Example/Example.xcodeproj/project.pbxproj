@@ -30,6 +30,7 @@
 		D9E09C8B17E07D7C00A18391 /* dict.blockEntries.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8717E07D7C00A18391 /* dict.blockEntries.itz */; };
 		D9E09C8C17E07D7C00A18391 /* dict.idx.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8817E07D7C00A18391 /* dict.idx.itz */; };
 		D9E09C8D17E07D7C00A18391 /* dict.ifo.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8917E07D7C00A18391 /* dict.ifo.itz */; };
+		D9E09C9017E0DD0000A18391 /* ITZipBlockEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E09C8F17E0DCFF00A18391 /* ITZipBlockEntry.m */; };
 		D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		D9E09C8717E07D7C00A18391 /* dict.blockEntries.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.blockEntries.itz; sourceTree = "<group>"; };
 		D9E09C8817E07D7C00A18391 /* dict.idx.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.idx.itz; sourceTree = "<group>"; };
 		D9E09C8917E07D7C00A18391 /* dict.ifo.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.ifo.itz; sourceTree = "<group>"; };
+		D9E09C8E17E0DCFE00A18391 /* ITZipBlockEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITZipBlockEntry.h; sourceTree = "<group>"; };
+		D9E09C8F17E0DCFF00A18391 /* ITZipBlockEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITZipBlockEntry.m; sourceTree = "<group>"; };
 		D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionaryEngine.h; sourceTree = "<group>"; };
 		D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionaryEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +140,8 @@
 				D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */,
 				D9D3C68D17DDB3F6007FB7B3 /* NSData+ZIP.h */,
 				D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */,
+				D9E09C8E17E0DCFE00A18391 /* ITZipBlockEntry.h */,
+				D9E09C8F17E0DCFF00A18391 /* ITZipBlockEntry.m */,
 				17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */,
 				17D774F417D8C92400526659 /* ITMeaningViewController.h */,
 				17D774F517D8C92400526659 /* ITMeaningViewController.m */,
@@ -255,6 +260,7 @@
 				17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */,
 				D9D3C68F17DDB3F6007FB7B3 /* NSData+ZIP.m in Sources */,
 				D9E09C8417E076FC00A18391 /* NSString+ZipFileName.m in Sources */,
+				D9E09C9017E0DD0000A18391 /* ITZipBlockEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

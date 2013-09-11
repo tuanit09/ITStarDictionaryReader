@@ -22,8 +22,10 @@
 @property (strong, readonly, nonatomic) NSURL        *infoFileURL;      // path to info file.
 @property (strong, readonly, nonatomic) NSURL        *indexFileURL;     // path to index file.
 @property (strong, readonly, nonatomic) NSURL        *dataFileURL;      // path to data file.
+@property (strong, readonly, nonatomic) NSURL        *blockEntriesFileURL;
 @property (strong, readonly, nonatomic) NSURL        *synFileURL;       // path to synonym file.
 @property (strong, readonly, nonatomic) NSArray         *wordEntries;           // list of entries initialized at same time with ITDictionary object.
+@property (strong, readonly, nonatomic) NSArray         *blockEntries;
 @property (strong, readonly, nonatomic) NSArray         *wordSectionEntries;
 @property (assign, readonly, nonatomic) NSUInteger      sectionAIndex;
 @property (assign, readonly, nonatomic) unichar         letterAValue;
@@ -51,7 +53,7 @@
 /**
  Init new ITDictionary object with its' data files.
  */
-- (id) initWithInfoFile:(NSURL *)infoFileURL indexFile:(NSURL *)indexFileURL dataFile:(NSURL *)dataFileURL synFile:(NSURL *)synFileURL;
+- (id) initWithInfoFile:(NSURL *)infoFileURL indexFile:(NSURL *)indexFileURL dataFile:(NSURL *)dataFileURL blockEntriesFile:(NSURL *)blockEntriesFileURL synFile:(NSURL *)synFileURL;
 
 /**
  Load dictionary data including: info file, index file, syn file.
