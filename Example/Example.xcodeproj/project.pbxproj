@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1756A9DC17CFA80C00B55436 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 1756A9DB17CFA80C00B55436 /* NSString+Value.m */; };
-		17D4B0C017D8E0FE00555E40 /* en_vi.dict.dz in Resources */ = {isa = PBXBuildFile; fileRef = 17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */; };
 		17D774F017D8C10400526659 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */; };
 		17D774F317D8C26D00526659 /* ITWordsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D774F217D8C26D00526659 /* ITWordsTableViewController.m */; };
 		17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D774F517D8C92400526659 /* ITMeaningViewController.m */; };
@@ -24,17 +23,19 @@
 		D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94D7A9717CB9CCE0026B96C /* Default-568h@2x.png */; };
 		D94D7AA017CB9D330026B96C /* ITWordEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7A9F17CB9D330026B96C /* ITWordEntry.m */; };
 		D94D7AA317CB9E260026B96C /* ITDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D94D7AA217CB9E260026B96C /* ITDictionary.m */; };
-		D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2A17CE6504005A77AD /* en_vi.idx */; };
-		D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */ = {isa = PBXBuildFile; fileRef = D9630F2B17CE6504005A77AD /* en_vi.ifo */; };
 		D9D3C68C17DDB381007FB7B3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3C68B17DDB381007FB7B3 /* libz.dylib */; };
 		D9D3C68F17DDB3F6007FB7B3 /* NSData+ZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */; };
+		D9E09C8417E076FC00A18391 /* NSString+ZipFileName.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E09C8317E076FC00A18391 /* NSString+ZipFileName.m */; };
+		D9E09C8A17E07D7C00A18391 /* dict.blockData.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8617E07D7C00A18391 /* dict.blockData.itz */; };
+		D9E09C8B17E07D7C00A18391 /* dict.blockEntries.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8717E07D7C00A18391 /* dict.blockEntries.itz */; };
+		D9E09C8C17E07D7C00A18391 /* dict.idx.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8817E07D7C00A18391 /* dict.idx.itz */; };
+		D9E09C8D17E07D7C00A18391 /* dict.ifo.itz in Resources */ = {isa = PBXBuildFile; fileRef = D9E09C8917E07D7C00A18391 /* dict.ifo.itz */; };
 		D9E1BCD517D09FDF009B0E34 /* ITDictionaryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1756A9DA17CFA80C00B55436 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
 		1756A9DB17CFA80C00B55436 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
-		17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.dict.dz; sourceTree = "<group>"; };
 		17D774EF17D8C10400526659 /* Storyboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
 		17D774F117D8C26D00526659 /* ITWordsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITWordsTableViewController.h; sourceTree = "<group>"; };
 		17D774F217D8C26D00526659 /* ITWordsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordsTableViewController.m; sourceTree = "<group>"; };
@@ -60,11 +61,15 @@
 		D94D7A9F17CB9D330026B96C /* ITWordEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITWordEntry.m; sourceTree = "<group>"; };
 		D94D7AA117CB9E260026B96C /* ITDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionary.h; sourceTree = "<group>"; };
 		D94D7AA217CB9E260026B96C /* ITDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionary.m; sourceTree = "<group>"; };
-		D9630F2A17CE6504005A77AD /* en_vi.idx */ = {isa = PBXFileReference; lastKnownFileType = file; path = en_vi.idx; sourceTree = "<group>"; };
-		D9630F2B17CE6504005A77AD /* en_vi.ifo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en_vi.ifo; sourceTree = "<group>"; };
 		D9D3C68B17DDB381007FB7B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D9D3C68D17DDB3F6007FB7B3 /* NSData+ZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ZIP.h"; sourceTree = "<group>"; };
 		D9D3C68E17DDB3F6007FB7B3 /* NSData+ZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZIP.m"; sourceTree = "<group>"; };
+		D9E09C8217E076FC00A18391 /* NSString+ZipFileName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZipFileName.h"; sourceTree = "<group>"; };
+		D9E09C8317E076FC00A18391 /* NSString+ZipFileName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZipFileName.m"; sourceTree = "<group>"; };
+		D9E09C8617E07D7C00A18391 /* dict.blockData.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.blockData.itz; sourceTree = "<group>"; };
+		D9E09C8717E07D7C00A18391 /* dict.blockEntries.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.blockEntries.itz; sourceTree = "<group>"; };
+		D9E09C8817E07D7C00A18391 /* dict.idx.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.idx.itz; sourceTree = "<group>"; };
+		D9E09C8917E07D7C00A18391 /* dict.ifo.itz */ = {isa = PBXFileReference; lastKnownFileType = file; path = dict.ifo.itz; sourceTree = "<group>"; };
 		D9E1BCD317D09FDF009B0E34 /* ITDictionaryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDictionaryEngine.h; sourceTree = "<group>"; };
 		D9E1BCD417D09FDF009B0E34 /* ITDictionaryEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDictionaryEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +120,8 @@
 		D94D7A8717CB9CCE0026B96C /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				D9E09C8217E076FC00A18391 /* NSString+ZipFileName.h */,
+				D9E09C8317E076FC00A18391 /* NSString+ZipFileName.m */,
 				D94D7A9017CB9CCE0026B96C /* ITAppDelegate.h */,
 				D94D7A9117CB9CCE0026B96C /* ITAppDelegate.m */,
 				D92AE14A17D04FD3005EAF4E /* ITConstants.h */,
@@ -143,7 +150,7 @@
 		D94D7A8817CB9CCE0026B96C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D9630F2817CE6504005A77AD /* stardict_en_vi */,
+				D9E09C8517E07D7C00A18391 /* stardict_en_vi */,
 				D94D7A8917CB9CCE0026B96C /* Example-Info.plist */,
 				D94D7A8A17CB9CCE0026B96C /* InfoPlist.strings */,
 				D94D7A8D17CB9CCE0026B96C /* main.m */,
@@ -155,12 +162,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D9630F2817CE6504005A77AD /* stardict_en_vi */ = {
+		D9E09C8517E07D7C00A18391 /* stardict_en_vi */ = {
 			isa = PBXGroup;
 			children = (
-				17D4B0BF17D8E0FE00555E40 /* en_vi.dict.dz */,
-				D9630F2A17CE6504005A77AD /* en_vi.idx */,
-				D9630F2B17CE6504005A77AD /* en_vi.ifo */,
+				D9E09C8617E07D7C00A18391 /* dict.blockData.itz */,
+				D9E09C8717E07D7C00A18391 /* dict.blockEntries.itz */,
+				D9E09C8817E07D7C00A18391 /* dict.idx.itz */,
+				D9E09C8917E07D7C00A18391 /* dict.ifo.itz */,
 			);
 			path = stardict_en_vi;
 			sourceTree = "<group>";
@@ -221,10 +229,11 @@
 				D94D7A9417CB9CCE0026B96C /* Default.png in Resources */,
 				D94D7A9617CB9CCE0026B96C /* Default@2x.png in Resources */,
 				D94D7A9817CB9CCE0026B96C /* Default-568h@2x.png in Resources */,
-				D9630F2D17CE6504005A77AD /* en_vi.idx in Resources */,
-				D9630F2E17CE6504005A77AD /* en_vi.ifo in Resources */,
 				17D774F017D8C10400526659 /* Storyboard_iPhone.storyboard in Resources */,
-				17D4B0C017D8E0FE00555E40 /* en_vi.dict.dz in Resources */,
+				D9E09C8A17E07D7C00A18391 /* dict.blockData.itz in Resources */,
+				D9E09C8B17E07D7C00A18391 /* dict.blockEntries.itz in Resources */,
+				D9E09C8C17E07D7C00A18391 /* dict.idx.itz in Resources */,
+				D9E09C8D17E07D7C00A18391 /* dict.ifo.itz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +254,7 @@
 				17D774F317D8C26D00526659 /* ITWordsTableViewController.m in Sources */,
 				17D774F617D8C92400526659 /* ITMeaningViewController.m in Sources */,
 				D9D3C68F17DDB3F6007FB7B3 /* NSData+ZIP.m in Sources */,
+				D9E09C8417E076FC00A18391 /* NSString+ZipFileName.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

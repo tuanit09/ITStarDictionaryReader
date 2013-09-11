@@ -12,13 +12,15 @@
 #import "ITConstants.h"
 #import "NSString+Value.h"
 #import "ITDictionaryEngine.h"
+#import "NSString+ZipFileName.h"
 
-#define kInfoWordSectionCount   50
-#define kInfoFileExtension     @"ifo"
-#define kIndexFileExtension    @"idx"
-#define kDataFileExtension     @"dz"
-#define kSynFileExtension      @"syn"
-#define kNewLine                @"\n"
+#define kInfoWordSectionCount       50
+#define kInfoFileExtension          kZipInfoFileExtension
+#define kIndexFileExtension         kZipIndexFileExtension
+#define kDataFileExtension          kZipDataBlockFileExtension
+#define kBlockEntriesFileExtension  kZipBlockEntryFileExtension
+#define kSynFileExtension           kZipSynFileExtension
+#define kNewLine                    @"\n"
 
 @interface ITDictionary()
 {
@@ -38,48 +40,50 @@
     return nil;
 }
 
-- (id)initWithDictionaryFolder:(NSString *)dictionaryFolderPath
+- (id) initWithDictionaryFolder:(NSURL *)folderURL;
 {
-    NSString *infoPath = nil;
-    NSString *indexPath = nil;
-    NSString *dataPath = nil;
-    NSString * synPath = nil;
-    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dictionaryFolderPath error:nil];
-    if ([files count] < 4) {
+    NSURL *infoFileURL = nil;
+    NSURL *indexFileURL = nil;
+    NSURL *dataFileURL = nil;
+    NSURL * synFileURL = nil;
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:folderURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles error:nil];
+    if ([files count] < 3) {
         return nil;
     }
-    for (NSString *file in files) {
-        if ([file hasSuffix:kInfoFileExtension]) {
-            infoPath = file;
+    for (NSURL *fileURL in files) {
+        NSString *fileExtension = [fileURL pathExtension];
+        if ([fileExtension hasSuffix:kInfoFileExtension]) {
+
+            infoFileURL = fileURL;
         }
-        else if ([file hasSuffix:kIndexFileExtension])
+        else if ([fileExtension hasSuffix:kIndexFileExtension])
         {
-            indexPath = file;
+            indexFileURL = fileURL;
         }
-        else if ([file hasSuffix:kDataFileExtension])
+        else if ([fileExtension hasSuffix:kDataFileExtension])
         {
-            dataPath = file;
+            dataFileURL = fileURL;
         }
-        else if ([file hasSuffix:kSynFileExtension])
+        else if ([fileExtension hasSuffix:kSynFileExtension])
         {
-            synPath = file;
+            synFileURL = fileURL;
         }
     }
-    return [self initWithInfoFile:infoPath indexFile:indexPath dataFile:dataPath synFile:synPath];
+    return [self initWithInfoFile:infoFileURL indexFile:indexFileURL dataFile:dataFileURL synFile:synFileURL];
 }
 
-- (id)initWithInfoFile:(NSString *)infoPath indexFile:(NSString *)indexPath dataFile:(NSString *)dataPath synFile:(NSString *)synPath
+- (id) initWithInfoFile:(NSURL *)infoFileURL indexFile:(NSURL *)indexFileURL dataFile:(NSURL *)dataFileURL synFile:(NSURL *)synFileURL;
 {
-    if (!infoPath || !indexPath || !dataPath) {
+    if (!infoFileURL || !indexFileURL || !dataFileURL) {
         // invalid parameter
         return nil;
     }
 
     if (self = [super init]) {
-        _infoFilePath = infoPath;
-        _indexFilePath = indexPath;
-        _dataFilePath = dataPath;
-        _synFilePath = synPath;
+        _infoFileURL = infoFileURL;
+        _indexFileURL = indexFileURL;
+        _dataFileURL = dataFileURL;
+        _synFileURL = synFileURL;
     }
     return self;
 }
@@ -103,9 +107,9 @@
  @param filePath file to be read.
  @return lines of read data
  */
-- (NSData *)dataForFile:(NSString *)filePath
+- (NSData *)dataForFile:(NSURL *)fileURL
 {
-    return [NSData dataWithContentsOfFile:filePath];
+    return [NSData dataWithContentsOfURL:fileURL];
 }
 
 /**
@@ -127,9 +131,8 @@
 
 - (void)loadInfoFile
 {
-    NSData *data = [self dataForFile:self.infoFilePath];
+    NSData *data = [self dataForFile:self.infoFileURL];
     NSString *infoString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
     _version = [infoString substringBetweenBeinKey:kInfoVersionKey endKey:kInfoLineEndKey];
     _bookName = [infoString substringBetweenBeinKey:kInfoBookNameKey endKey:kInfoLineEndKey];
     _wordCount = [[infoString substringBetweenBeinKey:kInfoWordCountKey endKey:kInfoLineEndKey] unsignedIntegerValue];
@@ -141,7 +144,7 @@
     _website = [infoString substringBetweenBeinKey:kInfoWebsiteKey endKey:kInfoLineEndKey];
     _description = [infoString substringBetweenBeinKey:kInfoDescriptionKey endKey:kInfoLineEndKey];
 #warning incompleted
-//    _date   = [infoString substringBetweenBeinKey:kInfoDateKey endKey:kInfoLineEndKey];
+    //    _date   = [infoString substringBetweenBeinKey:kInfoDateKey endKey:kInfoLineEndKey];
     _sameTypeSequence = [infoString substringBetweenBeinKey:kInfoSameTypeSequenceKey endKey:kInfoLineEndKey];
 }
 
@@ -188,7 +191,7 @@
     _wordEntries = [[NSMutableArray alloc] initWithCapacity:self.wordCount];    // init array of entries
     _wordSectionEntries = [[NSMutableArray alloc] initWithCapacity:kInfoWordSectionCount];
 
-    NSData *data = [self dataForFile:self.indexFilePath];    // load index file
+    NSData *data = [self dataForFile:self.indexFileURL];    // load index file
     Byte *bytes = (Byte *)data.bytes;
     Byte *pBeginByte;
     Byte *pEndByte = bytes;

@@ -15,5 +15,6 @@
 @property (assign, readonly, nonatomic)       NSUInteger      length;     // length to retrieve in data file
 
 - (id)initWithWord:(NSString *)word offset:(NSUInteger)offset length:(NSUInteger)length;
+-(NSData *)data;
 
 @end

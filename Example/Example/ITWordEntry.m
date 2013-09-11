@@ -20,4 +20,13 @@
     return self;
 }
 
+-(NSData *)data
+{
+    NSMutableData *data = [[NSMutableData alloc] init];
+    [data appendData:[self.word dataUsingEncoding:NSUTF8StringEncoding]];
+    [data appendData:[NSData dataWithBytes:&_offset length:sizeof(UInt32)]];
+    [data appendData:[NSData dataWithBytes:&_length length:sizeof(UInt32)]];
+    return data;
+}
+
 @end
